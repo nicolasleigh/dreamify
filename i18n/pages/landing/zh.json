@@ -3,57 +3,29 @@
   "theme": "light",
   "header": {
     "brand": {
-      "title": "AI Image",
+      "title": "Dreamify",
       "logo": {
         "src": "/logo.png",
-        "alt": "ShipAny"
+        "alt": "Dreamify"
       },
       "url": "/zh"
     },
     "nav": {
       "items": [
         {
-          "title": "功能特点",
-          "url": "/#feature",
-          "icon": "HiOutlineSparkles"
+          "title": "博客",
+          "url": "https://linze.pro",
+          "target": "_blank",
+          "variant": "link",
+          "icon": "RiArrowRightUpLine"
         },
         {
           "title": "定价",
           "url": "/#pricing",
           "icon": "MdPayment"
-        },
-        {
-          "title": "案例展示",
-          "url": "/#showcase",
-          "icon": "BiCube",
-          "children": [
-            {
-              "title": "AI壁纸商店",
-              "description": "AI壁纸生成器",
-              "icon": "MdOutlineWallpaper",
-              "url": "https://aiwallpaper.shop",
-              "target": "_blank"
-            },
-            {
-              "title": "AI封面生成器",
-              "description": "AI封面生成器",
-              "icon": "",
-              "url": "https://aicover.design",
-              "target": "_blank"
-            }
-          ]
         }
       ]
     },
-    "buttons": [
-      {
-        "title": "获取 ShipAny",
-        "url": "https://shipany.ai",
-        "target": "_blank",
-        "variant": "link",
-        "icon": "RiArrowRightUpLine"
-      }
-    ],
     "show_sign": true,
     "show_theme": true,
     "show_locale": true
@@ -71,7 +43,7 @@
       {
         "title": "立即开始",
         "icon": "RiFlashlightFill",
-        "url": "/#pricing",
+        "url": "/#generate",
         "target": "_self",
         "variant": "default"
       }
@@ -100,26 +72,50 @@
     "items": [
       {
         "image": {
-          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752315881/ai/nkvryry5m6dyjt0jsaag.png",
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752334131/ai/qk9wtpmzmesxv4rnwn1m.png",
           "alt": "Special Selection 1"
         }
       },
       {
         "image": {
-          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752318485/ai/avlonr6ujnbnmqrhpp7c.png",
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752335122/ai/cfaybwu1rmzd5hyan7pt.png",
           "alt": "Special Selection 2"
         }
       },
       {
         "image": {
-          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752318339/ai/mt4sdgvkezvh3qdb9pcv.png",
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752327965/ai/wwhpt2iznxnhmzo0ffvw.png",
           "alt": "Special Selection 3"
         }
       },
       {
         "image": {
-          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752318919/ai/bdbwx6ksrryd8gcnmqe2.png",
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752333813/ai/yp0sbd0mfmgrbgp7pjcj.png",
           "alt": "Special Selection 4"
+        }
+      },
+      {
+        "image": {
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752334274/ai/x4li35xgf06qyl68fcxr.png",
+          "alt": "Special Selection 5"
+        }
+      },
+      {
+        "image": {
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752334306/ai/flaobmiemk9xyreatbgm.png",
+          "alt": "Special Selection 6"
+        }
+      },
+      {
+        "image": {
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752334632/ai/vkhfrtkodflgpujxysgd.png",
+          "alt": "Special Selection 7"
+        }
+      },
+      {
+        "image": {
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752334787/ai/kjw6qnvlohivrks3skm4.png",
+          "alt": "Special Selection 8"
         }
       }
     ]
@@ -415,35 +411,33 @@
     "name": "pricing",
     "label": "定价",
     "title": "定价",
-    "description": "获取 ShipAny 的所有功能，快速启动您的 AI SaaS 创业项目。",
+    "description": "灵感无限，创作无忧",
     "groups": [],
     "items": [
       {
         "title": "入门版",
-        "description": "开始您的第一个 SaaS 创业项目。",
-        "features_title": "包含",
+        "description": "使用首月赠送的 100 点数，开始生成令人惊艳的 AI 图像。",
+        "features_title": "套餐包含",
         "features": [
-          "100 积分，有效期 1 个月",
-          "NextJS 模板",
-          "SEO 友好结构",
-          "Stripe 支付",
-          "Supabase 数据存储",
-          "Google OAuth 和一键登录",
-          "国际化支持"
+          "100 个图像生成点数，有效期 1 个月",
+          "访问标准 AI 模型",
+          "快速图像生成（平均小于 10 秒）",
+          "可下载高分辨率图像（最高 1024×1024）",
+          "查看过往生成记录",
+          "基础提示词模板",
+          "邮件支持服务"
         ],
         "interval": "one-time",
         "amount": 9900,
         "cn_amount": 69900,
         "currency": "USD",
-        "price": "$99",
-        "original_price": "$199",
+        "price": "$49",
+        "original_price": "$69",
         "unit": "USD",
         "is_featured": false,
-        "tip": "一次付费，无限项目！",
         "button": {
-          "title": "获取 ShipAny",
-          "url": "/#pricing",
-          "icon": "RiFlashlightFill"
+          "title": "立即支付",
+          "url": "/#pricing"
         },
         "product_id": "starter",
         "product_name": "ShipAny 模板入门版",
@@ -452,32 +446,28 @@
       },
       {
         "title": "标准版",
-        "description": "快速启动您的 SaaS 创业项目。",
-        "label": "热门",
-        "features_title": "包含入门版所有功能，另加",
+        "description": "解锁高级功能和更多点数，专为重度用户和创作者打造。",
+        "features_title": "包含入门版所有功能，并额外提供",
         "features": [
-          "200 积分，有效期 3 个月",
-          "Vercel 或 Cloudflare 部署",
-          "隐私和条款生成",
-          "Google Analytics 集成",
-          "Google Search Console 集成",
-          "Discord 社区",
-          "首次发布技术支持",
-          "终身更新"
+          "每月 1000 个图像生成点数",
+          "批量生成图像（每次最多生成 4 张）",
+          "图像超高清放大（可达 2048×2048 及以上）",
+          "私人生成模式（可隐藏生成内容）",
+          "提示词保存与预设功能",
+          "优先处理生成请求",
+          "优先邮件支持服务"
         ],
         "interval": "one-time",
         "amount": 19900,
         "cn_amount": 139900,
         "currency": "USD",
-        "price": "$199",
-        "original_price": "$299",
+        "price": "$99",
+        "original_price": "$169",
         "unit": "USD",
         "is_featured": true,
-        "tip": "一次付费，无限项目！",
         "button": {
-          "title": "获取 ShipAny",
-          "url": "/#pricing",
-          "icon": "RiFlashlightFill"
+          "title": "立即支付",
+          "url": "/#pricing"
         },
         "product_id": "standard",
         "product_name": "ShipAny 模板标准版",
@@ -486,30 +476,28 @@
       },
       {
         "title": "高级版",
-        "description": "构建任何 AI SaaS 创业项目。",
-        "features_title": "包含标准版所有功能，另加",
+        "description": "适用于需要大批量图像生成和 API 接入的企业、团队或应用。",
+        "features_title": "包含标准版所有功能，并额外提供",
         "features": [
-          "300 积分，有效期 1 年",
-          "AI 业务功能",
-          "用户中心",
-          "积分系统",
-          "SaaS API 销售",
-          "管理系统",
-          "优先技术支持"
+          "自定义图像点数套餐",
+          "无限制的生成记录访问",
+          "API 接口访问（基于密钥的速率限制）",
+          "专属模型微调服务",
+          "团队协作功能",
+          "自定义品牌支持",
+          "专属客户经理服务"
         ],
         "interval": "one-time",
         "amount": 29900,
         "cn_amount": 199900,
         "currency": "USD",
-        "price": "$299",
-        "original_price": "$399",
+        "price": "$199",
+        "original_price": "$269",
         "unit": "USD",
         "is_featured": false,
-        "tip": "一次付费，无限项目！",
         "button": {
-          "title": "获取 ShipAny",
-          "url": "/#pricing",
-          "icon": "RiFlashlightFill"
+          "title": "立即支付",
+          "url": "/#pricing"
         },
         "product_id": "premium",
         "product_name": "ShipAny 模板高级版",
@@ -629,15 +617,15 @@
   "footer": {
     "name": "footer",
     "brand": {
-      "title": "ShipAny",
-      "description": "ShipAny 是一个用于构建 AI SaaS 创业项目的 NextJS 模板。通过丰富的模板和组件快速启动。",
+      "title": "Dreamify",
+      "description": "为创作者与开发者倾心打造 ❤️",
       "logo": {
         "src": "/logo.png",
-        "alt": "ShipAny"
+        "alt": "Dreamify"
       },
       "url": "/"
     },
-    "copyright": "© 2025 • ShipAny 保留所有权利。",
+    "copyright": "© 2025 • Nicolas Leigh 保留所有权利。",
     "nav": {
       "items": [
         {

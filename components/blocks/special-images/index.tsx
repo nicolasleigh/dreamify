@@ -9,7 +9,7 @@ export default function SpecialImages({ section }: { section: SectionType }) {
     <section id={section.name} className='py-16'>
       <div className='container'>
         <div className='mb-8 flex flex-col justify-between md:mb-14 lg:mb-16'>
-          <h2 className='mb-5 text-pretty text-xl font-bold lg:text-2xl text-center'>{section.title}</h2>
+          <h2 className='mb-5 text-pretty text-2xl font-bold lg:text-3xl text-center'>{section.title}</h2>
           <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
             {section.items &&
               section.items.map((v, i) => {

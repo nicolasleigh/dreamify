@@ -40,6 +40,7 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
       {page.image && <ImageForm section={page.image} />}
       {page.recent && <RecentImages section={page.recent} />}
       {page.special && <SpecialImages section={page.special} />}
+      {page.pricing && <Pricing pricing={page.pricing} />}
       {/* {page.branding && <Branding section={page.branding} />}
       {page.introduce && <Feature1 section={page.introduce} />}
       {page.benefit && <Feature2 section={page.benefit} />}

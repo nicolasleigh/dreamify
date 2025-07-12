@@ -106,7 +106,7 @@ export default function ImageForm({ section }: { section: ImageFormType }) {
   }
 
   return (
-    <section className='py-24 '>
+    <section id='generate' className='py-20 '>
       <div className='container grid md:grid-cols-2 gap-8'>
         {/* Form */}
         <Card>
@@ -169,7 +169,7 @@ export default function ImageForm({ section }: { section: ImageFormType }) {
                       section.button
                     )}
                   </Button>
-                  <a href='#' className='flex items-center justify-center w-full'>
+                  <a href='/#pricing' className='flex items-center justify-center w-full'>
                     <span>✨</span>
                     <span className='text-xs border-b border-dashed border-primary font-bold text-primary hover:opacity-85'>
                       {section.pro}
