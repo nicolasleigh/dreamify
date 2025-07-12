@@ -150,7 +150,7 @@ export default function ImageForm({ section }: { section: ImageFormType }) {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <Input placeholder='' {...field} />
+                            <Input placeholder='' {...field} className='w-full pr-10' />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
