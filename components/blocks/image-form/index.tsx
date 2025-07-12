@@ -21,9 +21,6 @@ const validateImage = (file, ctx) => {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       message: `Image cannot be greater than ${MAX_IMAGE_SIZE}`,
-      // message: i18n.t("posterTooLargeMessage", {
-      //   maxSize: formatBytes(MAX_IMAGE_SIZE),
-      // }),
       fatal: true,
     });
   }
@@ -31,7 +28,6 @@ const validateImage = (file, ctx) => {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       message: "Please upload a valid image file (PNG/JPG/JPEG)",
-      // message: i18n.t("Please upload a valid image file (JPEG, PNG, or WebP)"),
       fatal: true,
     });
   }
@@ -49,7 +45,6 @@ const formSchema = z.object({
 export default function ImageForm({ section }: { section: ImageFormType }) {
   const [selectedImage, setSelectedImage] = useState("");
   const [resultUrl, setResultUrl] = useState("");
-  const [prompt, setPrompt] = useState("");
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -63,18 +58,17 @@ export default function ImageForm({ section }: { section: ImageFormType }) {
     const formData = new FormData();
     formData.append("image", values.image);
     values.prompt && formData.append("prompt", values.prompt);
-    // console.log("values.prompt--:", values.prompt);
     const res = await fetch("/api/edit-image", {
       method: "POST",
       body: formData,
     });
     const result = await res.json();
     if (result) {
-      console.log("res-result:", result);
+      // console.log("res-result:", result);
       setResultUrl(result.data);
     } else {
       // TODO:
-      alert("Error editing image");
+      console.log("Error editing image");
     }
   }
 
@@ -182,7 +176,13 @@ export default function ImageForm({ section }: { section: ImageFormType }) {
           <CardHeader>
             <CardTitle className='text-xl'>{section.result_title}</CardTitle>
           </CardHeader>
-          <CardContent>{resultUrl && <img src={resultUrl} alt='Edited result' />}</CardContent>
+          <CardContent>
+            {resultUrl ? (
+              <img src={resultUrl} alt='Edited result' className='rounded-md' />
+            ) : (
+              <p className='text-center mt-40 text-neutral-500'>{section.result_text_content}</p>
+            )}
+          </CardContent>
           <CardFooter className='flex flex-col items-start'></CardFooter>
         </Card>
       </div>

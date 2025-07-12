@@ -81,13 +81,17 @@
   },
   "image": {
     "label": "上传图片",
-    "prompt_title": "输入提示词",
+    "prompt_title": "输入提示词（可选）",
     "prompt_input": "请将此图片转换为吉卜力工作室风格。",
     "button": "生成吉卜力风格图片",
     "pro": "升级至高级版本，获取更多创作次数和高级功能",
     "dropzone": "拖拽图片到这里或点击",
     "result_title": "吉卜力风格结果",
     "result_text_content": "上传图片并点击转换按钮，开始您的吉卜力风格魔法之旅。"
+  },
+  "recent": {
+    "name": "recent",
+    "title": "最近生成的图像"
   },
   "branding": {
     "title": "ShipAny 建立在巨人的肩膀上",

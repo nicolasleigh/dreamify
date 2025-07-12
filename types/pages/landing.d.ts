@@ -3,6 +3,7 @@ import { Hero } from "@/types/blocks/hero";
 import { Section } from "@/types/blocks/section";
 import { Footer } from "@/types/blocks/footer";
 import { ImageForm } from "../blocks/image";
+import { ImageShowcase } from "../blocks/imageShowcase";
 
 export interface LandingPage {
   header?: Header;
@@ -20,4 +21,5 @@ export interface LandingPage {
   cta?: Section;
   footer?: Footer;
   image?: ImageForm;
+  recent?: Section;
 }

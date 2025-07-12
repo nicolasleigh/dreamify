@@ -81,13 +81,17 @@
   },
   "image": {
     "label": "Upload Image",
-    "prompt_title": "Input Prompt",
+    "prompt_title": "Input Prompt (Optional)",
     "prompt_input": "Please convert this image into Studio Ghibli art style with the Ghibli AI generator.",
     "button": "Transform to Ghibli Art Style",
     "pro": "Upgrade to Pro for more transformations and advanced features",
     "dropzone": "Drag and drop you image file or click",
     "result_title": "Ghibli Style Result",
     "result_text_content": "Upload an image and click transform to start your Ghibli style magic journey."
+  },
+  "recent": {
+    "name": "recent",
+    "title": "Recently Generated Images"
   },
   "branding": {
     "title": "ShipAny is built on the shoulders of giants",
