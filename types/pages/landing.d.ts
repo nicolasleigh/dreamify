@@ -2,6 +2,7 @@ import { Header } from "@/types/blocks/header";
 import { Hero } from "@/types/blocks/hero";
 import { Section } from "@/types/blocks/section";
 import { Footer } from "@/types/blocks/footer";
+import { ImageForm } from "../blocks/image";
 
 export interface LandingPage {
   header?: Header;
@@ -18,4 +19,5 @@ export interface LandingPage {
   faq?: Section;
   cta?: Section;
   footer?: Footer;
+  image?: ImageForm;
 }

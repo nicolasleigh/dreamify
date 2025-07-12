@@ -15,11 +15,7 @@ const fontSans = FontSans({
   variable: "--font-sans",
 });
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations();
 
@@ -45,16 +41,11 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased overflow-x-hidden",
-          fontSans.variable
-        )}
-      >
+      <body className={cn("min-h-screen bg-background font-sans antialiased overflow-x-hidden", fontSans.variable)}>
         <NextIntlClientProvider messages={messages}>
           <NextAuthSessionProvider>
             <AppContextProvider>
-              <ThemeProvider attribute="class" disableTransitionOnChange>
+              <ThemeProvider attribute='class' disableTransitionOnChange>
                 {children}
               </ThemeProvider>
             </AppContextProvider>

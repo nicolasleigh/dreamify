@@ -59,15 +59,14 @@
     "show_locale": true
   },
   "hero": {
-    "title": "几小时内快速构建 AI 创业项目，而不是几天",
-    "highlight_text": "快速构建",
-    "description": "ShipAny 是一个用于构建 AI SaaS 创业项目的 NextJS 模板。<br/>通过丰富的模板和组件快速启动。",
+    "title": "将您的照片变成吉卜力风格艺术",
+    "highlight_text": "吉卜力",
+    "description": "通过我们的AI驱动技术，体验吉卜力工作室的魔幻艺术风格",
     "announcement": {
       "label": "2025",
       "title": "🎉 新年快乐",
       "url": "/#pricing"
     },
-    "tip": "🎁 2025年前五折优惠",
     "buttons": [
       {
         "title": "立即开始",
@@ -75,17 +74,20 @@
         "url": "/#pricing",
         "target": "_self",
         "variant": "default"
-      },
-      {
-        "title": "加入 Discord",
-        "icon": "RiDiscordFill",
-        "url": "https://discord.gg/HQNnrzjZQS",
-        "target": "_blank",
-        "variant": "outline"
       }
     ],
-    "show_happy_users": true,
+    "show_happy_users": false,
     "show_badge": false
+  },
+  "image": {
+    "label": "上传图片",
+    "prompt_title": "输入提示词",
+    "prompt_input": "请将此图片转换为吉卜力工作室风格。",
+    "button": "生成吉卜力风格图片",
+    "pro": "升级至高级版本，获取更多创作次数和高级功能",
+    "dropzone": "拖拽图片到这里或点击",
+    "result_title": "吉卜力风格结果",
+    "result_text_content": "上传图片并点击转换按钮，开始您的吉卜力风格魔法之旅。"
   },
   "branding": {
     "title": "ShipAny 建立在巨人的肩膀上",

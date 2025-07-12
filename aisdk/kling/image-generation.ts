@@ -8,7 +8,7 @@ class Client {
   }
 
   async createTask({
-    model = "kling-v1",
+    model_name = "kling-v1",
     prompt,
     negative_prompt,
     image,
@@ -18,7 +18,7 @@ class Client {
     callback_url,
     ...params
   }: {
-    model?: "kling-v1";
+    model_name?: "kling-v1";
     prompt: string;
     negative_prompt?: string;
     image?: string;
@@ -31,7 +31,7 @@ class Client {
     try {
       const uri = `${baseUrl}/v1/images/generations`;
       const req = {
-        model,
+        model_name,
         prompt,
         negative_prompt,
         image,
@@ -85,13 +85,7 @@ class Client {
     }
   }
 
-  async queryTasks({
-    page = 1,
-    limit = 30,
-  }: {
-    page?: number;
-    limit?: number;
-  }): Promise<Response> {
+  async queryTasks({ page = 1, limit = 30 }: { page?: number; limit?: number }): Promise<Response> {
     try {
       if (page < 1 || page > 1000) {
         throw new Error("invalid page");

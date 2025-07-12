@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "Ship Any AI SaaS Startups in hours | ShipAny",
-    "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups, Ship Fast with a variety of templates and components.",
-    "keywords": "ShipAny, AI SaaS Boilerplate, NextJS Boilerplate"
+    "title": "Generate your AI image",
+    "description": "Ghibli Image Generator",
+    "keywords": "ShipAny, AI SaaS Boilerplate, NextJS Boilerplate, Image Generator"
   },
   "user": {
     "sign_in": "Sign In",

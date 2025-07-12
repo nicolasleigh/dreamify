@@ -10,7 +10,7 @@ export interface Response {
   data?: any;
 }
 
-export const baseUrl = "https://api.klingai.com";
+export const baseUrl = "https://api-beijing.klingai.com";
 
 export async function getToken(config: Config): Promise<string> {
   try {
@@ -29,32 +29,18 @@ export async function getToken(config: Config): Promise<string> {
     };
 
     // Encode header and payload
-    const encodedHeader = Buffer.from(JSON.stringify(header)).toString(
-      "base64url"
-    );
-    const encodedPayload = Buffer.from(JSON.stringify(payload)).toString(
-      "base64url"
-    );
+    const encodedHeader = Buffer.from(JSON.stringify(header)).toString("base64url");
+    const encodedPayload = Buffer.from(JSON.stringify(payload)).toString("base64url");
 
     // Create the signature input
     const signatureInput = `${encodedHeader}.${encodedPayload}`;
 
     // Convert secret key to Uint8Array
     const keyData = new TextEncoder().encode(config.secretKey);
-    const cryptoKey = await crypto.subtle.importKey(
-      "raw",
-      keyData,
-      { name: "HMAC", hash: "SHA-256" },
-      false,
-      ["sign"]
-    );
+    const cryptoKey = await crypto.subtle.importKey("raw", keyData, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
 
     // Sign the input
-    const signature = await crypto.subtle.sign(
-      "HMAC",
-      cryptoKey,
-      new TextEncoder().encode(signatureInput)
-    );
+    const signature = await crypto.subtle.sign("HMAC", cryptoKey, new TextEncoder().encode(signatureInput));
 
     // Convert signature to base64url
     const encodedSignature = Buffer.from(signature).toString("base64url");

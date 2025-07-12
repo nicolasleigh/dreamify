@@ -3,10 +3,10 @@
   "theme": "light",
   "header": {
     "brand": {
-      "title": "ShipAny",
+      "title": "AI Image",
       "logo": {
         "src": "/logo.png",
-        "alt": "ShipAny"
+        "alt": "AI Image"
       },
       "url": "/"
     },
@@ -59,15 +59,14 @@
     "show_locale": true
   },
   "hero": {
-    "title": "Ship Any AI Startups in hours, not days",
-    "highlight_text": "Ship Any",
-    "description": "ShipAny is a NextJS boilerplate for building AI SaaS startups.<br/>Ship Fast with a variety of templates and components.",
+    "title": "Turn your photos into Ghibli-style art",
+    "highlight_text": "Ghibli-style",
+    "description": "Experience the magical art style of Studio Ghibli through our AI-powered technology。",
     "announcement": {
       "label": "2025",
       "title": "🎉 Happy New Year",
       "url": "/#pricing"
     },
-    "tip": "🎁 50% off before 2025",
     "buttons": [
       {
         "title": "Get Started",
@@ -75,17 +74,20 @@
         "url": "/#pricing",
         "target": "_self",
         "variant": "default"
-      },
-      {
-        "title": "Join Discord",
-        "icon": "RiDiscordFill",
-        "url": "https://discord.gg/HQNnrzjZQS",
-        "target": "_blank",
-        "variant": "outline"
       }
     ],
-    "show_happy_users": true,
+    "show_happy_users": false,
     "show_badge": false
+  },
+  "image": {
+    "label": "Upload Image",
+    "prompt_title": "Input Prompt",
+    "prompt_input": "Please convert this image into Studio Ghibli art style with the Ghibli AI generator.",
+    "button": "Transform to Ghibli Art Style",
+    "pro": "Upgrade to Pro for more transformations and advanced features",
+    "dropzone": "Drag and drop you image file or click",
+    "result_title": "Ghibli Style Result",
+    "result_text_content": "Upload an image and click transform to start your Ghibli style magic journey."
   },
   "branding": {
     "title": "ShipAny is built on the shoulders of giants",
