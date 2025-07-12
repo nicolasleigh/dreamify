@@ -42,7 +42,7 @@ const Dropzone = React.forwardRef<HTMLDivElement, DropzoneProps>(
       <Card
         ref={ref}
         className={cn(
-          `border border-dashed hover:cursor-pointer rounded-md shadow-none hover:bg-muted md:w-full h-[400px]`,
+          `border border-dashed hover:cursor-pointer rounded-md shadow-none hover:bg-muted md:w-full h-[400px] transition-all duration-500`,
           classNameWrapper
         )}
       >

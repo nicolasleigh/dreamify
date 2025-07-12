@@ -10,7 +10,9 @@ import { useEffect, useState } from "react";
 import Dropzone from "../dropzone";
 import { Image as ImageFormType } from "@/types/blocks/image";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sparkles } from "lucide-react";
+import { Loader2Icon, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const MAX_IMAGE_SIZE = 1024 * 1024 * 10;
 const ACCEPTED_IMAGE_TYPES = ["image/png", "image/jpg", "image/jpeg"];
@@ -45,6 +47,7 @@ const formSchema = z.object({
 export default function ImageForm({ section }: { section: ImageFormType }) {
   const [selectedImage, setSelectedImage] = useState("");
   const [resultUrl, setResultUrl] = useState("");
+  const [isBusy, setIsBusy] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -55,6 +58,7 @@ export default function ImageForm({ section }: { section: ImageFormType }) {
   });
 
   async function handleSubmit(values: z.infer<typeof formSchema>) {
+    setIsBusy(true);
     const formData = new FormData();
     formData.append("image", values.image);
     values.prompt && formData.append("prompt", values.prompt);
@@ -64,12 +68,12 @@ export default function ImageForm({ section }: { section: ImageFormType }) {
     });
     const result = await res.json();
     if (result) {
-      // console.log("res-result:", result);
       setResultUrl(result.data);
     } else {
       // TODO:
       console.log("Error editing image");
     }
+    setIsBusy(false);
   }
 
   const showSelectedImage = (file) => {
@@ -156,12 +160,18 @@ export default function ImageForm({ section }: { section: ImageFormType }) {
                     />
                   </div>
 
-                  <Button type='submit' className='rounded-full mt-5 w-full mb-2'>
-                    {section.button}
+                  <Button type='submit' className={"rounded-full mt-5 w-full mb-2 hover:opacity-85"} disabled={isBusy}>
+                    {isBusy ? (
+                      <>
+                        {section.generating} <Loader2Icon className='animate-spin' />
+                      </>
+                    ) : (
+                      section.button
+                    )}
                   </Button>
                   <a href='#' className='flex items-center justify-center w-full'>
                     <span>✨</span>
-                    <span className='text-xs border-b border-dashed border-primary font-bold text-primary'>
+                    <span className='text-xs border-b border-dashed border-primary font-bold text-primary hover:opacity-85'>
                       {section.pro}
                     </span>
                     <span>✨</span>
@@ -178,7 +188,7 @@ export default function ImageForm({ section }: { section: ImageFormType }) {
           </CardHeader>
           <CardContent>
             {resultUrl ? (
-              <img src={resultUrl} alt='Edited result' className='rounded-md' />
+              <Image src={resultUrl} width={500} height={500} alt='Edited result' className='rounded-md' />
             ) : (
               <p className='text-center mt-40 text-neutral-500'>{section.result_text_content}</p>
             )}

@@ -7,4 +7,5 @@ export interface Image {
   dropzone: string;
   result_title: string;
   result_text_content: string;
+  generating: string;
 }

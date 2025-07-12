@@ -22,4 +22,5 @@ export interface LandingPage {
   footer?: Footer;
   image?: ImageForm;
   recent?: Section;
+  special?: Section;
 }

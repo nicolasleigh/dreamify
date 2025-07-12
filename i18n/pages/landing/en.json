@@ -87,11 +87,42 @@
     "pro": "Upgrade to Pro for more transformations and advanced features",
     "dropzone": "Drag and drop you image file or click",
     "result_title": "Ghibli Style Result",
-    "result_text_content": "Upload an image and click transform to start your Ghibli style magic journey."
+    "result_text_content": "Upload an image and click transform to start your Ghibli style magic journey.",
+    "generating": "Generating..."
   },
   "recent": {
     "name": "recent",
     "title": "Recently Generated Images"
+  },
+  "special": {
+    "name": "special",
+    "title": "Editor Special Selections",
+    "items": [
+      {
+        "image": {
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752315881/ai/nkvryry5m6dyjt0jsaag.png",
+          "alt": "Special Selection 1"
+        }
+      },
+      {
+        "image": {
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752318485/ai/avlonr6ujnbnmqrhpp7c.png",
+          "alt": "Special Selection 2"
+        }
+      },
+      {
+        "image": {
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752318339/ai/mt4sdgvkezvh3qdb9pcv.png",
+          "alt": "Special Selection 3"
+        }
+      },
+      {
+        "image": {
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752318919/ai/bdbwx6ksrryd8gcnmqe2.png",
+          "alt": "Special Selection 4"
+        }
+      }
+    ]
   },
   "branding": {
     "title": "ShipAny is built on the shoulders of giants",

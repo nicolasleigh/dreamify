@@ -3,7 +3,7 @@
   "theme": "light",
   "header": {
     "brand": {
-      "title": "ShipAny",
+      "title": "AI Image",
       "logo": {
         "src": "/logo.png",
         "alt": "ShipAny"
@@ -87,11 +87,42 @@
     "pro": "升级至高级版本，获取更多创作次数和高级功能",
     "dropzone": "拖拽图片到这里或点击",
     "result_title": "吉卜力风格结果",
-    "result_text_content": "上传图片并点击转换按钮，开始您的吉卜力风格魔法之旅。"
+    "result_text_content": "上传图片并点击转换按钮，开始您的吉卜力风格魔法之旅。",
+    "generating": "正在生成中..."
   },
   "recent": {
     "name": "recent",
     "title": "最近生成的图像"
+  },
+  "special": {
+    "name": "special",
+    "title": "编辑精选",
+    "items": [
+      {
+        "image": {
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752315881/ai/nkvryry5m6dyjt0jsaag.png",
+          "alt": "Special Selection 1"
+        }
+      },
+      {
+        "image": {
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752318485/ai/avlonr6ujnbnmqrhpp7c.png",
+          "alt": "Special Selection 2"
+        }
+      },
+      {
+        "image": {
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752318339/ai/mt4sdgvkezvh3qdb9pcv.png",
+          "alt": "Special Selection 3"
+        }
+      },
+      {
+        "image": {
+          "src": "https://res.cloudinary.com/dzociog3r/image/upload/v1752318919/ai/bdbwx6ksrryd8gcnmqe2.png",
+          "alt": "Special Selection 4"
+        }
+      }
+    ]
   },
   "branding": {
     "title": "ShipAny 建立在巨人的肩膀上",
