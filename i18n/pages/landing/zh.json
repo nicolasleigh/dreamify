@@ -42,7 +42,6 @@
     "buttons": [
       {
         "title": "立即开始",
-        "icon": "RiFlashlightFill",
         "url": "/#generate",
         "target": "_self",
         "variant": "default"

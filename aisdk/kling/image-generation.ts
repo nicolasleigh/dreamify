@@ -42,7 +42,8 @@ class Client {
         ...params,
       };
 
-      console.log("Image Generation request:", this.token, uri, req);
+      // NOTE:
+      // console.log("Image Generation request:", this.token, uri, req);
 
       const response = await fetch(uri, {
         method: "POST",

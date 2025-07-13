@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { ImageUp, ImageUpIcon } from "lucide-react";
+import { ImageUpIcon } from "lucide-react";
 import React, { ChangeEvent, useRef } from "react";
 
 interface DropzoneProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange"> {
@@ -9,6 +9,7 @@ interface DropzoneProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>
   className?: string;
   dropMessage: string;
   handleOnDrop: (acceptedFiles: FileList | null) => void;
+  selectedImage: string;
 }
 
 const Dropzone = React.forwardRef<HTMLDivElement, DropzoneProps>(

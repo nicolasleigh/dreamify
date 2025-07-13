@@ -42,7 +42,6 @@
     "buttons": [
       {
         "title": "Get Started",
-        "icon": "RiFlashlightFill",
         "url": "/#generate",
         "target": "_self",
         "variant": "default"

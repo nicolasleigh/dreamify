@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Section as SectionType } from "@/types/blocks/section";
 import Image from "next/image";
 

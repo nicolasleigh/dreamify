@@ -1,18 +1,17 @@
 "use client";
 
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, UseFormProps, UseFormReturn } from "react-hook-form";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
-import Dropzone from "../dropzone";
 import { Image as ImageFormType } from "@/types/blocks/image";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import Dropzone from "../dropzone";
 
 const MAX_IMAGE_SIZE = 1024 * 1024 * 10;
 const ACCEPTED_IMAGE_TYPES = ["image/png", "image/jpg", "image/jpeg"];
@@ -141,7 +140,6 @@ export default function ImageForm({ section }: { section: ImageFormType }) {
                   <p className='text-xs mb-3'>{section.prompt_title}</p>
 
                   <div className='relative w-full'>
-                    {/* <Input className='w-full pr-10' value={prompt} /> */}
                     <FormField
                       control={form.control}
                       name='prompt'
@@ -190,7 +188,7 @@ export default function ImageForm({ section }: { section: ImageFormType }) {
             {resultUrl ? (
               <Image src={resultUrl} width={500} height={500} alt='Edited result' className='rounded-md' />
             ) : (
-              <p className='text-center mt-40 text-neutral-500'>{section.result_text_content}</p>
+              <p className='text-center my-40 text-neutral-500'>{section.result_text_content}</p>
             )}
           </CardContent>
           <CardFooter className='flex flex-col items-start'></CardFooter>

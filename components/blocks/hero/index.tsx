@@ -19,7 +19,7 @@ export default function Hero({ hero }: { hero: HeroType }) {
 
   return (
     <>
-      <HeroBg />
+      {/* <HeroBg /> */}
       <section className='py-24'>
         <div className='container'>
           {hero.show_badge && (

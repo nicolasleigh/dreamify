@@ -38,9 +38,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-Makefile
+# Makefile
 .wrangler
 wrangler.toml
 supabase
 
 .env
+dreamify.tar
