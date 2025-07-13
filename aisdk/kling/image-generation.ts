@@ -8,7 +8,7 @@ class Client {
   }
 
   async createTask({
-    model_name = "kling-v1",
+    model_name = "kling-v2",
     prompt,
     negative_prompt,
     image,
@@ -18,7 +18,7 @@ class Client {
     callback_url,
     ...params
   }: {
-    model_name?: "kling-v1";
+    model_name?: "kling-v1" | "kling-v1-5" | "kling-v2";
     prompt: string;
     negative_prompt?: string;
     image?: string;
@@ -43,7 +43,7 @@ class Client {
       };
 
       // NOTE:
-      // console.log("Image Generation request:", this.token, uri, req);
+      console.log("Image Generation request:", this.token, uri, req);
 
       const response = await fetch(uri, {
         method: "POST",

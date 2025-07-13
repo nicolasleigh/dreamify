@@ -19,19 +19,19 @@ export async function POST(req: Request) {
     const prompt =
       prmt ||
       // "Convert only the character into Studio Ghibli anime style. Keep the original background exactly the same. The character should have large expressive eyes, soft natural facial features, gentle blush on the cheeks, pastel cel-shading, clean anime line art, subtle shading, smooth skin texture, vivid but not saturated colors, detailed hair strands, illustrated in Hayao Miyazaki style. Background must remain photo-realistic and unmodified.";
-      "A portrait of a young person in Studio Ghibli anime style, soft watercolor-like textures, expressive large eyes, animated facial features, darker light, subtle shading, smooth skin texture, painted with gentle pastel colors, clean cel-shaded line art, cinematic framing, highly detailed, art by Studio Ghibli, Hayao Miyazaki style";
+      "吉卜力画风，吉卜力画风，吉卜力画风，吉卜力画风，吉卜力画风，吉卜力画风，吉卜力画风，吉卜力画风，吉卜力画风，吉卜力画风，吉卜力画风，吉卜力画风，吉卜力画风，吉卜力画风";
 
     const model = "kling-v1";
 
     let imageModel: ImageModelV1;
     let providerOptions: Record<string, Record<string, JSONValue>> = {};
 
-    // @ts-ignore
     imageModel = kling.image(model);
     providerOptions = {
       kling: {
         image: buffer.toString("base64"),
         aspect_ratio: "1:1",
+        // image_reference: "subject",
       },
     };
 

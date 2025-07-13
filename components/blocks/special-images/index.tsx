@@ -1,7 +1,6 @@
 "use client";
 
 import { Section as SectionType } from "@/types/blocks/section";
-import Image from "next/image";
 
 export default function SpecialImages({ section }: { section: SectionType }) {
   return (
@@ -13,7 +12,7 @@ export default function SpecialImages({ section }: { section: SectionType }) {
             {section.items &&
               section.items.map((v, i) => {
                 return (
-                  <Image
+                  <img
                     src={v.image?.src || ""}
                     key={i}
                     width={300}

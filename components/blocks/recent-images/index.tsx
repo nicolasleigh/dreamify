@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Section as SectionType } from "@/types/blocks/section";
-import Image from "next/image";
 
 export default function RecentImages({ section }: { section: SectionType }) {
   const [imagesUrls, setImageUrls] = useState([]);
@@ -36,7 +35,7 @@ export default function RecentImages({ section }: { section: SectionType }) {
             {imagesUrls &&
               imagesUrls.map((v, i) => {
                 return (
-                  <Image
+                  <img
                     src={v}
                     key={i}
                     width={300}

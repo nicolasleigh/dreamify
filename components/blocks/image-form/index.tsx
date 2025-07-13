@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Image as ImageFormType } from "@/types/blocks/image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon, Sparkles } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -186,7 +185,7 @@ export default function ImageForm({ section }: { section: ImageFormType }) {
           </CardHeader>
           <CardContent>
             {resultUrl ? (
-              <Image src={resultUrl} width={500} height={500} alt='Edited result' className='rounded-md' />
+              <img src={resultUrl} width={500} height={500} alt='Edited result' className='rounded-md' />
             ) : (
               <p className='text-center my-40 text-neutral-500'>{section.result_text_content}</p>
             )}
