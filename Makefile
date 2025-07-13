@@ -19,4 +19,7 @@ remote/docker_load:
 	ssh nicolas@106.14.126.186 "sudo -S docker load -i ~/dreamify/dreamify.tar"
 
 # Remote server docker run command:
-# sudo docker run -it -p 3001:3001 --name dreamify-container dreamify:1.0
+# sudo docker run -d -p 3001:3001 --name dreamify-container dreamify:1.0
+
+# Remove container
+# sudo docker rm dreamify-container

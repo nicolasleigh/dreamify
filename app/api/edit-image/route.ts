@@ -22,7 +22,6 @@ export async function POST(req: Request) {
       "A portrait of a young person in Studio Ghibli anime style, soft watercolor-like textures, expressive large eyes, animated facial features, darker light, subtle shading, smooth skin texture, painted with gentle pastel colors, clean cel-shaded line art, cinematic framing, highly detailed, art by Studio Ghibli, Hayao Miyazaki style";
 
     const model = "kling-v1";
-    // const model = "kling-v2";
 
     let imageModel: ImageModelV1;
     let providerOptions: Record<string, Record<string, JSONValue>> = {};
@@ -53,6 +52,8 @@ export async function POST(req: Request) {
       const dataUri = image.base64.startsWith("data:") ? image.base64 : `data:image/png;base64,${image.base64}`;
       const { secure_url: url } = await cloudinary.uploader.upload(dataUri, {
         folder: "ai",
+        resource_type: "image",
+        format: "webp",
       });
 
       await prisma.generatedImages.create({

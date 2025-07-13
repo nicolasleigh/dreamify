@@ -14,7 +14,7 @@ export default function RecentImages({ section }: { section: SectionType }) {
       });
 
       const result = await res.json();
-      console.log(result);
+      // console.log(result);
 
       if (result.data) {
         setImageUrls(result.data.map((v, i) => v.imageUrl));
