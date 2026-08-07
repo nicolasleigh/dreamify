@@ -1,5 +1,6 @@
 import { Post } from "@/types/post";
-import { getSupabaseClient } from "./db";
+import { getUuid } from "@/lib/hash";
+import { prisma } from "@/prisma";
 
 export enum PostStatus {
   Created = "created",
@@ -9,82 +10,51 @@ export enum PostStatus {
 }
 
 export async function insertPost(post: Post) {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase.from("posts").insert(post);
-
-  if (error) {
-    throw error;
-  }
-
-  return data;
+  await prisma.post.create({
+    data: {
+      ...post,
+      uuid: post.uuid || getUuid(),
+    },
+  });
 }
 
 export async function updatePost(uuid: string, post: Partial<Post>) {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("posts")
-    .update(post)
-    .eq("uuid", uuid);
-
-  if (error) {
-    throw error;
-  }
-
-  return data;
+  await prisma.post.updateMany({
+    where: { uuid },
+    data: post,
+  });
 }
 
 export async function findPostByUuid(uuid: string): Promise<Post | undefined> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("posts")
-    .select("*")
-    .eq("uuid", uuid)
-    .limit(1)
-    .single();
+  const post = await prisma.post.findUnique({
+    where: { uuid },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return post ?? undefined;
 }
 
 export async function findPostBySlug(
   slug: string,
   locale: string
 ): Promise<Post | undefined> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("posts")
-    .select("*")
-    .eq("slug", slug)
-    .eq("locale", locale)
-    .limit(1)
-    .single();
+  const post = await prisma.post.findFirst({
+    where: { slug, locale },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return post ?? undefined;
 }
 
 export async function getAllPosts(
   page: number = 1,
   limit: number = 50
 ): Promise<Post[]> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("posts")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .range((page - 1) * limit, page * limit - 1);
+  const posts = await prisma.post.findMany({
+    orderBy: { created_at: "desc" },
+    skip: (page - 1) * limit,
+    take: limit,
+  });
 
-  if (error) {
-    return [];
-  }
-
-  return data;
+  return posts;
 }
 
 export async function getPostsByLocale(
@@ -92,18 +62,15 @@ export async function getPostsByLocale(
   page: number = 1,
   limit: number = 50
 ): Promise<Post[]> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("posts")
-    .select("*")
-    .eq("locale", locale)
-    .eq("status", PostStatus.Online)
-    .order("created_at", { ascending: false })
-    .range((page - 1) * limit, page * limit - 1);
+  const posts = await prisma.post.findMany({
+    where: {
+      locale,
+      status: PostStatus.Online,
+    },
+    orderBy: { created_at: "desc" },
+    skip: (page - 1) * limit,
+    take: limit,
+  });
 
-  if (error) {
-    return [];
-  }
-
-  return data;
+  return posts;
 }

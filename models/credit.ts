@@ -1,70 +1,45 @@
 import { Credit } from "@/types/credit";
-import { getSupabaseClient } from "@/models/db";
+import { prisma } from "@/prisma";
 
 export async function insertCredit(credit: Credit) {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase.from("credits").insert(credit);
-
-  if (error) {
-    throw error;
-  }
-
-  return data;
+  await prisma.credit.create({
+    data: credit,
+  });
 }
 
 export async function findCreditByTransNo(
   trans_no: string
 ): Promise<Credit | undefined> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("credits")
-    .select("*")
-    .eq("trans_no", trans_no)
-    .limit(1)
-    .single();
+  const credit = await prisma.credit.findUnique({
+    where: { trans_no },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return credit ?? undefined;
 }
 
 export async function findCreditByOrderNo(
   order_no: string
 ): Promise<Credit | undefined> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("credits")
-    .select("*")
-    .eq("order_no", order_no)
-    .limit(1)
-    .single();
+  const credit = await prisma.credit.findFirst({
+    where: { order_no },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return credit ?? undefined;
 }
 
 export async function getUserValidCredits(
   user_uuid: string
 ): Promise<Credit[] | undefined> {
   const now = new Date().toISOString();
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("credits")
-    .select("*")
-    .eq("user_uuid", user_uuid)
-    .gte("expired_at", now)
-    .order("expired_at", { ascending: true });
+  const credits = await prisma.credit.findMany({
+    where: {
+      user_uuid,
+      expired_at: { gte: now },
+    },
+    orderBy: { expired_at: "asc" },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return credits;
 }
 
 export async function getCreditsByUserUuid(
@@ -72,17 +47,12 @@ export async function getCreditsByUserUuid(
   page: number = 1,
   limit: number = 50
 ): Promise<Credit[] | undefined> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("credits")
-    .select("*")
-    .eq("user_uuid", user_uuid)
-    .order("created_at", { ascending: false })
-    .range((page - 1) * limit, page * limit - 1);
+  const credits = await prisma.credit.findMany({
+    where: { user_uuid },
+    orderBy: { created_at: "desc" },
+    skip: (page - 1) * limit,
+    take: limit,
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return credits;
 }

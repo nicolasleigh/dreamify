@@ -1,5 +1,5 @@
 import { Apikey } from "@/types/apikey";
-import { getSupabaseClient } from "@/models/db";
+import { prisma } from "@/prisma";
 
 export enum ApikeyStatus {
   Created = "created",
@@ -7,12 +7,9 @@ export enum ApikeyStatus {
 }
 
 export async function insertApikey(apikey: Apikey) {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase.from("apikeys").insert(apikey);
-
-  if (error) throw error;
-
-  return data;
+  await prisma.apikey.create({
+    data: apikey,
+  });
 }
 
 export async function getUserApikeys(
@@ -22,37 +19,28 @@ export async function getUserApikeys(
 ): Promise<Apikey[] | undefined> {
   const offset = (page - 1) * limit;
 
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("apikeys")
-    .select("*")
-    .eq("user_uuid", user_uuid)
-    .neq("status", ApikeyStatus.Deleted)
-    .order("created_at", { ascending: false })
-    .range(offset, offset + limit - 1);
+  const apikeys = await prisma.apikey.findMany({
+    where: {
+      user_uuid,
+      status: { not: ApikeyStatus.Deleted },
+    },
+    orderBy: { created_at: "desc" },
+    skip: offset,
+    take: limit,
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return apikeys;
 }
 
 export async function getUserUuidByApiKey(
   apiKey: string
 ): Promise<string | undefined> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("apikeys")
-    .select("user_uuid")
-    .eq("api_key", apiKey)
-    .eq("status", ApikeyStatus.Created)
-    .limit(1)
-    .single();
+  const apikey = await prisma.apikey.findFirst({
+    where: {
+      api_key: apiKey,
+      status: ApikeyStatus.Created,
+    },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data?.user_uuid;
+  return apikey?.user_uuid;
 }

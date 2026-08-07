@@ -3,13 +3,129 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 model GeneratedImages {
   id        Int      @id @default(autoincrement())
   imageUrl  String   @unique
   createdAt DateTime @default(now())
+}
+
+model User {
+  id              Int     @id @default(autoincrement())
+  uuid            String  @unique
+  email           String
+  created_at      String  @default("")
+  nickname        String
+  avatar_url      String
+  locale          String  @default("")
+  signin_type     String  @default("")
+  signin_ip       String  @default("")
+  signin_provider String  @default("")
+  signin_openid   String  @default("")
+  invite_code     String  @default("")
+  updated_at      String  @default("")
+  invited_by      String  @default("")
+  is_affiliate    Boolean @default(false)
+
+  @@map("users")
+}
+
+model Order {
+  id                 Int     @id @default(autoincrement())
+  order_no           String  @unique
+  created_at         String
+  user_uuid          String
+  user_email         String
+  amount             Int
+  interval           String
+  expired_at         String
+  status             String
+  stripe_session_id  String  @default("")
+  credits            Int
+  currency           String
+  sub_id             String  @default("")
+  sub_interval_count Int     @default(0)
+  sub_cycle_anchor   Int     @default(0)
+  sub_period_end     Int     @default(0)
+  sub_period_start   Int     @default(0)
+  sub_times          Int     @default(0)
+  product_id         String  @default("")
+  product_name       String  @default("")
+  valid_months       Int     @default(0)
+  order_detail       String  @default("")
+  paid_at            String  @default("")
+  paid_email         String  @default("")
+  paid_detail        String  @default("")
+
+  @@map("orders")
+}
+
+model Credit {
+  id         Int    @id @default(autoincrement())
+  trans_no   String @unique
+  created_at String
+  user_uuid  String
+  trans_type String
+  credits    Int
+  order_no   String
+  expired_at String @default("")
+
+  @@map("credits")
+}
+
+model Apikey {
+  id         Int    @id @default(autoincrement())
+  api_key    String @unique
+  title      String
+  user_uuid  String
+  created_at String
+  status     String
+
+  @@map("apikeys")
+}
+
+model Affiliate {
+  id             Int     @id @default(autoincrement())
+  user_uuid      String
+  created_at     String
+  status         String
+  invited_by     String
+  paid_order_no  String  @default("")
+  paid_amount    Int     @default(0)
+  reward_percent Int     @default(0)
+  reward_amount  Int     @default(0)
+
+  @@map("affiliates")
+}
+
+model Feedback {
+  id         Int     @id @default(autoincrement())
+  created_at String
+  status     String
+  user_uuid  String
+  content    String
+  rating     Int     @default(0)
+
+  @@map("feedbacks")
+}
+
+model Post {
+  id                Int     @id @default(autoincrement())
+  uuid              String  @unique
+  slug              String  @default("")
+  title             String  @default("")
+  description       String  @default("")
+  content           String  @default("")
+  created_at        String  @default("")
+  updated_at        String  @default("")
+  status            String  @default("")
+  cover_url         String  @default("")
+  author_name       String  @default("")
+  author_avatar_url String  @default("")
+  locale            String  @default("")
+
+  @@map("posts")
 }

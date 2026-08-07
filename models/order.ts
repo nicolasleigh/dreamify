@@ -1,5 +1,5 @@
 import { Order } from "@/types/order";
-import { getSupabaseClient } from "@/models/db";
+import { prisma } from "@/prisma";
 
 export enum OrderStatus {
   Created = "created",
@@ -8,71 +8,47 @@ export enum OrderStatus {
 }
 
 export async function insertOrder(order: Order) {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase.from("orders").insert(order);
-
-  if (error) {
-    throw error;
-  }
-
-  return data;
+  await prisma.order.create({
+    data: order,
+  });
 }
 
 export async function findOrderByOrderNo(
   order_no: string
 ): Promise<Order | undefined> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("orders")
-    .select("*")
-    .eq("order_no", order_no)
-    .single();
+  const order = await prisma.order.findUnique({
+    where: { order_no },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return order ?? undefined;
 }
 
 export async function getFirstPaidOrderByUserUuid(
   user_uuid: string
 ): Promise<Order | undefined> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("orders")
-    .select("*")
-    .eq("user_uuid", user_uuid)
-    .eq("status", "paid")
-    .order("created_at", { ascending: true })
-    .limit(1)
-    .single();
+  const order = await prisma.order.findFirst({
+    where: {
+      user_uuid,
+      status: "paid",
+    },
+    orderBy: { created_at: "asc" },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return order ?? undefined;
 }
 
 export async function getFirstPaidOrderByUserEmail(
   user_email: string
 ): Promise<Order | undefined> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("orders")
-    .select("*")
-    .eq("user_email", user_email)
-    .eq("status", "paid")
-    .order("created_at", { ascending: true })
-    .limit(1)
-    .single();
+  const order = await prisma.order.findFirst({
+    where: {
+      user_email,
+      status: "paid",
+    },
+    orderBy: { created_at: "asc" },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return order ?? undefined;
 }
 
 export async function updateOrderStatus(
@@ -82,17 +58,10 @@ export async function updateOrderStatus(
   paid_email: string,
   paid_detail: string
 ) {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("orders")
-    .update({ status, paid_at, paid_detail, paid_email })
-    .eq("order_no", order_no);
-
-  if (error) {
-    throw error;
-  }
-
-  return data;
+  await prisma.order.updateMany({
+    where: { order_no },
+    data: { status, paid_at, paid_detail, paid_email },
+  });
 }
 
 export async function updateOrderSession(
@@ -100,17 +69,10 @@ export async function updateOrderSession(
   stripe_session_id: string,
   order_detail: string
 ) {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("orders")
-    .update({ stripe_session_id, order_detail })
-    .eq("order_no", order_no);
-
-  if (error) {
-    throw error;
-  }
-
-  return data;
+  await prisma.order.updateMany({
+    where: { order_no },
+    data: { stripe_session_id, order_detail },
+  });
 }
 
 export async function updateOrderSubscription(
@@ -126,10 +88,9 @@ export async function updateOrderSubscription(
   paid_email: string,
   paid_detail: string
 ) {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("orders")
-    .update({
+  await prisma.order.updateMany({
+    where: { order_no },
+    data: {
       sub_id,
       sub_interval_count,
       sub_cycle_anchor,
@@ -140,91 +101,62 @@ export async function updateOrderSubscription(
       sub_times,
       paid_email,
       paid_detail,
-    })
-    .eq("order_no", order_no);
-
-  if (error) {
-    throw error;
-  }
-
-  return data;
+    },
+  });
 }
 
 export async function getOrdersByUserUuid(
   user_uuid: string
 ): Promise<Order[] | undefined> {
-  const now = new Date().toISOString();
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("orders")
-    .select("*")
-    .eq("user_uuid", user_uuid)
-    .eq("status", "paid")
-    .order("created_at", { ascending: false });
-  // .gte("expired_at", now);
+  const orders = await prisma.order.findMany({
+    where: {
+      user_uuid,
+      status: "paid",
+    },
+    orderBy: { created_at: "desc" },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return orders;
 }
 
 export async function getOrdersByUserEmail(
   user_email: string
 ): Promise<Order[] | undefined> {
-  const now = new Date().toISOString();
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("orders")
-    .select("*")
-    .eq("user_email", user_email)
-    .eq("status", "paid")
-    .order("created_at", { ascending: false });
-  // .gte("expired_at", now);
+  const orders = await prisma.order.findMany({
+    where: {
+      user_email,
+      status: "paid",
+    },
+    orderBy: { created_at: "desc" },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return orders;
 }
 
 export async function getOrdersByPaidEmail(
   paid_email: string
 ): Promise<Order[] | undefined> {
-  const now = new Date().toISOString();
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("orders")
-    .select("*")
-    .eq("paid_email", paid_email)
-    .eq("status", "paid")
-    .order("created_at", { ascending: false });
-  // .gte("expired_at", now);
+  const orders = await prisma.order.findMany({
+    where: {
+      paid_email,
+      status: "paid",
+    },
+    orderBy: { created_at: "desc" },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return orders;
 }
 
 export async function getPaiedOrders(
   page: number,
   limit: number
 ): Promise<Order[] | undefined> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("orders")
-    .select("*")
-    .eq("status", "paid")
-    .order("created_at", { ascending: false })
-    .range((page - 1) * limit, page * limit);
+  const orders = await prisma.order.findMany({
+    where: { status: "paid" },
+    orderBy: { created_at: "desc" },
+    skip: (page - 1) * limit,
+    take: limit,
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return orders;
 }

@@ -1,33 +1,11 @@
 import { Feedback } from "@/types/feedback";
-import { getSupabaseClient } from "./db";
+import { prisma } from "@/prisma";
 import { getUsersByUuids } from "./user";
 
 export async function insertFeedback(feedback: Feedback) {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase.from("feedbacks").insert(feedback);
-
-  if (error) {
-    throw error;
-  }
-
-  return data;
-}
-
-export async function findFeedbackByUuid(
-  uuid: string
-): Promise<Feedback | undefined> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("feedbacks")
-    .select("*")
-    .eq("uuid", uuid)
-    .single();
-
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  await prisma.feedback.create({
+    data: feedback,
+  });
 }
 
 export async function getFeedbacks(
@@ -38,29 +16,26 @@ export async function getFeedbacks(
   if (limit <= 0) limit = 50;
 
   const offset = (page - 1) * limit;
-  const supabase = getSupabaseClient();
 
-  const { data, error } = await supabase
-    .from("feedbacks")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .range(offset, offset + limit - 1);
+  const feedbacks = await prisma.feedback.findMany({
+    orderBy: { created_at: "desc" },
+    skip: offset,
+    take: limit,
+  });
 
-  if (error) {
+  if (!feedbacks || feedbacks.length === 0) {
     return [];
   }
 
-  if (!data || data.length === 0) {
-    return [];
-  }
-
-  const user_uuids = Array.from(new Set(data.map((item) => item.user_uuid)));
+  const user_uuids = Array.from(
+    new Set(feedbacks.map((item) => item.user_uuid))
+  );
   const users = await getUsersByUuids(user_uuids);
 
-  const feedbacks = data.map((item) => {
+  const result = feedbacks.map((item) => {
     const user = users.find((user) => user.uuid === item.user_uuid);
     return { ...item, user };
   });
 
-  return feedbacks;
+  return result;
 }

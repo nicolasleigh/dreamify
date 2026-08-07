@@ -1,49 +1,33 @@
 import { User } from "@/types/user";
+import { getUuid } from "@/lib/hash";
 import { getIsoTimestr } from "@/lib/time";
-import { getSupabaseClient } from "./db";
+import { prisma } from "@/prisma";
 
 export async function insertUser(user: User) {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase.from("users").insert(user);
-
-  if (error) {
-    throw error;
-  }
-
-  return data;
+  await prisma.user.create({
+    data: {
+      ...user,
+      uuid: user.uuid || getUuid(),
+    },
+  });
 }
 
 export async function findUserByEmail(
   email: string
 ): Promise<User | undefined> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("users")
-    .select("*")
-    .eq("email", email)
-    .limit(1)
-    .single();
+  const user = await prisma.user.findFirst({
+    where: { email },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return user ?? undefined;
 }
 
 export async function findUserByUuid(uuid: string): Promise<User | undefined> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("users")
-    .select("*")
-    .eq("uuid", uuid)
-    .single();
+  const user = await prisma.user.findUnique({
+    where: { uuid },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return user ?? undefined;
 }
 
 export async function getUsers(
@@ -54,94 +38,59 @@ export async function getUsers(
   if (limit <= 0) limit = 50;
 
   const offset = (page - 1) * limit;
-  const supabase = getSupabaseClient();
 
-  const { data, error } = await supabase
-    .from("users")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .range(offset, offset + limit - 1);
+  const users = await prisma.user.findMany({
+    orderBy: { created_at: "desc" },
+    skip: offset,
+    take: limit,
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return users;
 }
 
 export async function updateUserInviteCode(
   user_uuid: string,
   invite_code: string
 ) {
-  const supabase = getSupabaseClient();
   const updated_at = getIsoTimestr();
-  const { data, error } = await supabase
-    .from("users")
-    .update({ invite_code, updated_at })
-    .eq("uuid", user_uuid);
-
-  if (error) {
-    throw error;
-  }
-
-  return data;
+  await prisma.user.updateMany({
+    where: { uuid: user_uuid },
+    data: { invite_code, updated_at },
+  });
 }
 
 export async function updateUserInvitedBy(
   user_uuid: string,
   invited_by: string
 ) {
-  const supabase = getSupabaseClient();
   const updated_at = getIsoTimestr();
-  const { data, error } = await supabase
-    .from("users")
-    .update({ invited_by, updated_at })
-    .eq("uuid", user_uuid);
-
-  if (error) {
-    throw error;
-  }
-
-  return data;
+  await prisma.user.updateMany({
+    where: { uuid: user_uuid },
+    data: { invited_by, updated_at },
+  });
 }
 
 export async function getUsersByUuids(user_uuids: string[]): Promise<User[]> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("users")
-    .select("*")
-    .in("uuid", user_uuids);
-  if (error) {
-    return [];
-  }
+  const users = await prisma.user.findMany({
+    where: { uuid: { in: user_uuids } },
+  });
 
-  return data as User[];
+  return users;
 }
 
 export async function findUserByInviteCode(invite_code: string) {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("users")
-    .select("*")
-    .eq("invite_code", invite_code)
-    .single();
+  const user = await prisma.user.findFirst({
+    where: { invite_code },
+  });
 
-  if (error) {
-    return undefined;
-  }
-
-  return data;
+  return user ?? undefined;
 }
 
 export async function getUserUuidsByEmail(email: string) {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase
-    .from("users")
-    .select("uuid")
-    .eq("email", email);
-  if (error) {
-    return [];
-  }
+  const users = await prisma.user.findMany({
+    where: { email },
+    select: { uuid: true },
+  });
 
-  return data.map((user) => user.uuid);
+  return users.map((user) => user.uuid);
 }

@@ -43,5 +43,9 @@ next-env.d.ts
 wrangler.toml
 supabase
 
+# SQLite database files
+prisma/*.db
+prisma/*.db-journal
+
 .env
 dreamify.tar
